@@ -8,7 +8,7 @@ function handleBtnClick() {
   const end = Number(document.querySelector('input[id="end"]').value)
   const worker = new Worker('worker.js')
   worker.postMessage({ start, end })
-  worker.onmessage = receiveWorkerMessage
+  worker.addEventListener('message', receiveWorkerMessage)
 }
 
 function receiveWorkerMessage(event) {
