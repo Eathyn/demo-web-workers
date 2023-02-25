@@ -1,5 +1,9 @@
 # A Web Workers Demo
 
+## Branch: main
+
+The `main` branch is just a template for other branches.
+
 ## Branch: simple
 
 Introducing basic usage of web workers.
