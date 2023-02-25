@@ -1,7 +1,7 @@
-onmessage = (evt) => {
+self.onmessage = (evt) => {
   const { fromNumber, toNumber } = evt.data
   const primes = findPrimes(fromNumber, toNumber)
-  postMessage(primes)
+  self.postMessage(primes)
 }
 
 function findPrimes(fromNumber, toNumber) {

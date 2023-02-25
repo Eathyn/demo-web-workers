@@ -13,7 +13,7 @@ function doSearch() {
     fromNumber: Number(fromNumber),
     toNumber: Number(toNumber)
   })
-  worker.onmessage = receiveWorkerMessage
+  worker.addEventListener('message', receiveWorkerMessage)
 }
 
 function receiveWorkerMessage(primes) {
