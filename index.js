@@ -8,34 +8,20 @@ function doSearch() {
   const statusDisplay = document.getElementById('status')
   statusDisplay.innerHTML = 'Starting new search...'
 
-  const primes = findPrimes(fromNumber, toNumber)
+  const worker = new Worker('./work.js')
+  worker.postMessage({
+    fromNumber: Number(fromNumber),
+    toNumber: Number(toNumber)
+  })
+  worker.onmessage = receiveWorkerMessage
+}
+
+function receiveWorkerMessage(primes) {
   generateContent(primes)
 }
 
-function findPrimes(fromNumber, toNumber) {
-  const list = []
-  for (let i = fromNumber; i <= toNumber; i++) {
-    if (i > 1) list.push(i)
-  }
-
-  const maxDiv = Math.round(Math.sqrt(toNumber))
-  const primes = []
-
-  for (let i = 0; i < list.length; i++) {
-    let failed = false
-    for (let j = 2; j <= maxDiv; j++) {
-      if ((list[i] !== j) && (list[i] % j === 0)) {
-        failed = true
-      } else if ((j === maxDiv) && (failed === false)) {
-        primes.push(list[i])
-      }
-    }
-  }
-
-  return primes
-}
-
-function generateContent(primes) {
+function generateContent(evt) {
+  const primes = evt.data
   let primeList = ''
   for (let i = 0; i < primes.length; i++) {
     primeList += primes[i]
